@@ -1,0 +1,44 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true
+    },
+    "globals": {
+        "describe": false,
+        "it": false,
+        "process": false
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-trailing-spaces": [
+            "error"
+        ],
+        "max-len": [
+            "error", { "code": 120 }
+        ],
+        "no-redeclare": [
+            "error"
+        ],
+        "no-console": ["error", { "allow": ["log", "error"] }]
+    }
+}
