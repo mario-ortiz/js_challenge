@@ -1,9 +1,10 @@
-version: '2'
+version: '3'
 services:
 
     users-db:
-        container_name: users-db
-        build: ./user-service/src/db
+        #container_name: users-db
+        image: 'services_users-db:latest'
+        #build: ./user-service/src/db
         ports:
             - '5433:5432'
         environment:
@@ -11,8 +12,9 @@ services:
             - POSTGRES_PASSWORD=postgres
 
     products-db:
-        container_name: products-db
-        build: ./product-service/src/db
+        #container_name: products-db
+        #build: ./product-service/src/db
+        image: 'services_products-db:latest'
         ports:
             - '5434:5432'
         environment:
@@ -20,25 +22,37 @@ services:
             - POSTGRES_PASSWORD=postgres
 
     user-service:
-        container_name: user-service
-        build: ./user-service/
+        #container_name: user-service
+        #build: ./user-service/
+        image: 'services_user-service:latest'
         volumes:
             - './user-service:/usr/src/app'
             - './user-service/package.json:/usr/src/package.json'
-        ports:
-            - '3000:3000'
         environment:
             - DATABASE_URL=postgres://postgres:postgres@users-db:5432/jungle_users
             - NODE_ENV=${NODE_ENV}
             - TOKEN_SECRET=juNgl3Sc0ut_ch4Llenge
+        deploy:
+            replicas: 5
+            resources:
+                limits:
+                    cpus: "0.1"
+                    memory: 50M
+            restart_policy:
+                condition: on-failure
+        ports:
+            - "3000:3000"
+        networks:
+            - webnet
         depends_on:
             - users-db
         links:
             - users-db
 
     product-service:
-        container_name: product-service
-        build: ./product-service/
+        #container_name: product-service
+        #build: ./product-service/
+        image: 'services_product-service:latest'
         volumes:
             - './product-service:/usr/src/app'
             - './product-service/package.json:/usr/src/package.json'
@@ -56,8 +70,9 @@ services:
             - user-service
 
     web-service:
-        container_name: web-service
-        build: ./web/
+        #container_name: web-service
+        #build: ./web/
+        image: 'services_web-service'
         volumes:
             - './web:/usr/src/app'
             - '/usr/src/app/node_modules'
@@ -73,8 +88,9 @@ services:
             - product-service
 
     swagger:
-        container_name: swagger
-        build: ./product-service/swagger/
+        #container_name: swagger
+        #build: ./product-service/swagger/
+        image: 'services_swagger'
         volumes:
             - './product-service/swagger:/usr/src/app'
             - '/usr/src/app/node_modules'
@@ -88,3 +104,6 @@ services:
         links:
             - user-service
             - product-service
+
+networks:
+    webnet:
