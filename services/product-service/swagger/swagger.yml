@@ -1,0 +1,75 @@
+swagger: "2.0"
+info:
+    description: "Documentation Example"
+    version: "0.0.1"
+    title: "Products API"
+host: "localhost:3001"
+basePath: "/products"
+schemes:
+    - "http"
+produces:
+    - "application/json"
+paths:
+    /list:
+        get:
+            summary: Returns a list of available products
+            description: Returns all available products
+            consumes:
+                - "application/json"
+            produces:
+                - "application/json"
+            responses:
+                200:
+                    description: Valid request
+                    schema:
+                        type: array
+                        items:
+                            $ref: '#/definitions/products'
+    /search/asin:
+        post:
+            summary: Looks for a specific product in Amazon's Product Advertising API
+            description: Adds a product to the service DB and returns a refreshed list of products
+            parameters:
+            - in: "formData"
+              name: "asin"
+              type: "string"
+              description: "ASIN code to look for the item"
+              required: true
+            consumes:
+                - "application/json"
+                - "application/x-www-form-urlencoded"
+            produces:
+                - "application/json"
+            responses:
+                200:
+                    description: Valid request
+                    schema:
+                        type: array
+                        items:
+                            $ref: '#/definitions/products'
+definitions:
+    products:
+        type: "object"
+        properties:
+            product_id:
+                type: "integer"
+                format: "int"
+            asin:
+                type: "string"
+            category:
+                type: "string"
+            rank:
+                type: "integer"
+                format: "int32"
+            height:
+                type: "integer"
+                format: "int32"
+            width:
+                type: "integer"
+                format: "int32"
+            length:
+                type: "integer"
+                format: "int32"
+            weight:
+                type: "integer"
+                format: "int32"

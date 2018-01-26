@@ -13,7 +13,7 @@ module.exports = {
         }
         const options = {
             method: 'GET',
-            uri: 'http://127.0.0.1:3000/users/auth',
+            uri: 'http://user-service:3000/users/auth',
             json: true,
             headers: {
                 'Content-Type': 'application/json',

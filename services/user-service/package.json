@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "gulp --gulpfile app/gulpfile.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,8 +15,13 @@
     "express": "4.16.2",
     "jsonwebtoken": "8.1.1",
     "moment": "2.20.1",
+    "pg": "7.4.1",
     "q": "1.5.1",
     "query-parser": "0.0.1",
     "sequelize": "4.32.1"
+  },
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "gulp-nodemon": "2.2.1"
   }
 }

@@ -7,8 +7,8 @@ module.exports = {
         PORT: 3000
     },
     db: {
-        user: 'wasteddog',
-        password: 'ch4lleng3',
-        database: 'jungle'
+        user: 'postgres',
+        password: 'postgres',
+        database: 'jungle_users'
     }
 };

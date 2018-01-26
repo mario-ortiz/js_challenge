@@ -11,18 +11,11 @@ const User = connection.define('user',
             primaryKey: true,
             autoIncrement: true
         },
-        first_name: Sequelize.STRING(40),
-        last_name: Sequelize.STRING(40),
-        email: {
-            type: Sequelize.STRING(128),
-            validate: {
-                isEmail: {
-                    msg: 'Wrong email format'
-                }
-            }
-        },
-        password: Sequelize.STRING(40),
-        username: Sequelize.STRING(40),
+        first_name: Sequelize.STRING(60),
+        last_name: Sequelize.STRING(60),
+        email: Sequelize.STRING(128),
+        password: Sequelize.STRING(64),
+        username: Sequelize.STRING(60),
         createdat: Sequelize.DATE,
         updatedat: Sequelize.DATE
     },
@@ -89,6 +82,9 @@ User.register = (user_data) => {
                     email,
                     password: encrypted_password,
                     username
+                })
+                .catch(err => {
+                    console.log(err);
                 });
         })
         .then(new_user => {

@@ -3,12 +3,12 @@ module.exports = {
         name: 'JS Challenge'
     },
     node_env: {
-        PORT: 3001
+        PORT: 3000
     },
     db: {
-        user: 'wasteddog',
-        password: 'ch4lleng3',
-        database: 'jungle'
+        user: 'postgres',
+        password: 'postgres',
+        database: 'jungle_products'
     },
     amazon: {
         associate_id: 'mros8122-20',
