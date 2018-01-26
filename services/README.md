@@ -9,17 +9,17 @@
 - **Install Docker CE:** https://docs.docker.com/engine/installation/
 - **Install Docker-Compose:** sudo apt install docker-compose (ubuntu)
 - **Create containers:**
-    export NODE_ENV=development
-    docker-compose up --build -d user-service
-    docker-compose up --build -d product-service
-    docker-compose up --build -d web-service
-    docker-compose up --build -d swagger
+    1. export NODE_ENV=development
+    2. docker-compose up --build -d user-service
+    3. docker-compose up --build -d product-service
+    4. docker-compose up --build -d web-service
+    5. docker-compose up --build -d swagger
 - **Run containers (each one in a different terminal):**
-    export NODE_ENV=development
-    docker-compose run user-service
-    docker-compose run product-service
-    docker-compose run web-service #localhost:3007
-    docker-compose run swagger #localhost:3003/docs
+    1. export NODE_ENV=development
+    2. docker-compose run user-service
+    3. docker-compose run product-service
+    4. docker-compose run web-service (**http://localhost:3007**)
+    5. docker-compose run swagger (**http://localhost:3003/docs**)
 
 ## In Progress
 - **Service Cloning:** Add cloning of services
