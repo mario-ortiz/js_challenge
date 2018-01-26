@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "gulp --gulpfile app/gulpfile.js",
-    "test": "node_modules/.bin/mocha 'tests/*.test.js'"
+    "test": "node_modules/.bin/mocha 'app/tests/*.test.js'"
   },
   "author": "",
   "license": "ISC",
