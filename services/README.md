@@ -21,8 +21,8 @@
     4. docker-compose run web-service (**http://localhost:3007**)
     5. docker-compose run swagger (**http://localhost:3003/docs**)
 
+These containers can be deployed with some extra configuration to Amazon ECS to create clusters.
+
 ## In Progress
 - **Service Cloning:** Add cloning of services
 - **Load balancing:** Add load balancing
-
-These containers can be deployed with some extra configuration to Amazon ECS to create clusters.
