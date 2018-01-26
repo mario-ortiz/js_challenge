@@ -9,10 +9,9 @@
 - **Install Docker CE:** https://docs.docker.com/engine/installation/
 - **Install Docker-Compose:** sudo apt install docker-compose (ubuntu)
 - **Create containers and Run containers :**
-    1. NODE_ENV=development docker-compose up -d
-    2. This will mount all containers
+    1. NODE_ENV=development docker-compose up -d (This will mount all containers)
     3. Access the web service: http://localhost:3007
-    4. Access the Swagger API documentation example service: http://localhost:3003/docs
+    4. Access the Swagger API documentation example service: http://localhost:3003/docs (click on default to see the list)
 
 These containers can be deployed with some extra configuration to Amazon ECS to create clusters.
 
