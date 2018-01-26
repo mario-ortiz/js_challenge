@@ -23,6 +23,17 @@
 
 These containers can be deployed with some extra configuration to Amazon ECS to create clusters.
 
+user-service is only there to demonstrate how both, the service discovery/communication and the authotization using JWT work.
+1. Do a POST request to http://localhost:3000/users/register and send this information using x-www-form-urlencoded
+ - first_name
+ - last_name
+ - email
+ - username
+ - password
+you should receive a Token.
+2. Do a POST request to http://localhost:3001/products/protected and send the Authorization header with value Bearer TOKEN (product-service will call user-service to authorize the request).
+3. If the token is valid, you should receive an ok status, otherwise an error status.
+
 ## In Progress
 - **Service Cloning:** Add cloning of services
 - **Load balancing:** Add load balancing
