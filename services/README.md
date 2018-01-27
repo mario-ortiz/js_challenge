@@ -27,3 +27,5 @@ user-service is only there to demonstrate how both, the service discovery/commun
 you should receive a Token.
 2. Do a POST request to http://localhost:3001/products/protected and send the Authorization header with value Bearer TOKEN (product-service will call user-service to authorize the request).
 3. If the token is valid, you should receive an ok status, otherwise an error status.
+
+Working site: https://drive.google.com/open?id=12rDb4b1VVw49IY1FPkTUyzfJnlACKpJw
