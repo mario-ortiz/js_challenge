@@ -1,7 +1,7 @@
-FROM node:latest
-RUN mkdir /usr/src/app
+FROM node:8.9.4-alpine
 WORKDIR /usr/src/app
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
-ADD package.json /usr/src/app/package.json
+COPY package*.json ./
 RUN npm install
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+COPY . .
 CMD ["npm", "start"]

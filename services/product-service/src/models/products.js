@@ -81,4 +81,10 @@ Product.find_one = (asin) => {
         });
 };
 
+Product
+    .sync()
+    .catch(err => {
+        console.log('Problem syncing ', err);
+    });
+
 module.exports = Product;

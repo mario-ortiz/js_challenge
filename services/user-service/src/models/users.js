@@ -95,4 +95,10 @@ User.register = (user_data) => {
         });
 };
 
+User
+    .sync()
+    .catch(err => {
+        console.log('Problem syncing ', err);
+    });
+
 module.exports = User;

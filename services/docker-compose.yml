@@ -1,66 +1,52 @@
-version: '2.1'
+version: '3'
 services:
-
-    users-db:
-        container_name: users-db
-        build: ./user-service/src/db
+    db:
+        container_name: db
+        image: postgres:9.6.7-alpine
+        volumes:
+            - ./init_users.sql:/docker-entrypoint-initdb.d/init_users.sql
+            - ./init_products.sql:/docker-entrypoint-initdb.d/init_products.sql
         ports:
-            - '5433:5432'
+            - '5432:5432'
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
         healthcheck:
-            test: exit 0
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 30s
+            timeout: 30s
+            retries: 3
 
-    products-db:
-        container_name: products-db
-        build: ./product-service/src/db
-        ports:
-            - '5434:5432'
-        environment:
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
-        healthcheck:
-            test: exit 0
-
-    user-service:
-        container_name: user-service
+    users:
+        container_name: users
         build: ./user-service/
         volumes:
             - './user-service:/usr/src/app'
-            - './user-service/package.json:/usr/src/package.json'
+            - '/usr/src/app/node_modules'
         ports:
             - '3000:3000'
         environment:
-            - DATABASE_URL=postgres://postgres:postgres@users-db:5432/jungle_users
+            - DATABASE_URL=postgres://postgres:postgres@db:5432/jungle_users
             - NODE_ENV=${NODE_ENV}
             - TOKEN_SECRET=juNgl3Sc0ut_ch4Llenge
         depends_on:
-            users-db:
-                condition: service_healthy
-        links:
-            - users-db
+            - db
 
-    product-service:
-        container_name: product-service
+    products:
+        container_name: products
         build: ./product-service/
         volumes:
             - './product-service:/usr/src/app'
-            - './product-service/package.json:/usr/src/package.json'
+            - '/usr/src/app/node_modules'
         ports:
             - '3001:3000'
         environment:
-            - DATABASE_URL=postgres://postgres:postgres@product-db:5432/jungle_products
+            - DATABASE_URL=postgres://postgres:postgres@db:5432/jungle_products
             - NODE_ENV=${NODE_ENV}
             - TOKEN_SECRET=juNgl3Sc0ut_ch4Llengee
         depends_on:
-            products-db:
-                condition: service_healthy
-            user-service:
-                condition: service_started
-        links:
-            - products-db
-            - user-service
+            - db
+            - users
 
     web-service:
         container_name: web-service
@@ -73,13 +59,11 @@ services:
         environment:
             - NODE_ENV=${NODE_ENV}
         depends_on:
-            user-service:
-                condition: service_started
-            product-service:
-                condition: service_started
+            - users
+            - products
         links:
-            - user-service
-            - product-service
+            - users
+            - products
 
     swagger:
         container_name: swagger
@@ -92,10 +76,5 @@ services:
         environment:
             - NODE_ENV=${NODE_ENV}
         depends_on:
-            user-service:
-                condition: service_started
-            product-service:
-                condition: service_started
-        links:
-            - user-service
-            - product-service
+            - users
+            - products
