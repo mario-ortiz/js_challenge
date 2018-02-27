@@ -69,6 +69,29 @@ router.post('/register', (req, res) => {
         });
 });
 
+router.get('/', (req, res) => {
+    return User
+        .findAll()
+        .then(users => {
+            return res
+                .send({
+                    status: 'ok',
+                    payload: {
+                        users
+                    }
+                });
+        })
+        .catch(err => {
+            return res
+                .send({
+                    status: 'error',
+                    payload: {
+                        message: err.toString()
+                    }
+                });
+        });
+});
+
 router.get('/auth', auth.is_authenticated, (req, res) => {
     return res
         .send({

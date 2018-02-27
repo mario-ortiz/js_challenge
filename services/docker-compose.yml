@@ -6,6 +6,7 @@ services:
         volumes:
             - ./init_users.sql:/docker-entrypoint-initdb.d/init_users.sql
             - ./init_products.sql:/docker-entrypoint-initdb.d/init_products.sql
+            - ./postgres-data:/var/lib/postgresql/data
         ports:
             - '5432:5432'
         environment:
@@ -18,7 +19,7 @@ services:
             retries: 3
 
     users:
-        container_name: users
+        image: users:v1.0
         build: ./user-service/
         volumes:
             - './user-service:/usr/src/app'
@@ -33,7 +34,7 @@ services:
             - db
 
     products:
-        container_name: products
+        image: products:v1.0
         build: ./product-service/
         volumes:
             - './product-service:/usr/src/app'
@@ -49,7 +50,7 @@ services:
             - users
 
     web-service:
-        container_name: web-service
+        image: web-service:v1.0
         build: ./web/
         volumes:
             - './web:/usr/src/app'
@@ -66,7 +67,7 @@ services:
             - products
 
     swagger:
-        container_name: swagger
+        image: swagger:v1.0
         build: ./product-service/swagger/
         volumes:
             - './product-service/swagger:/usr/src/app'

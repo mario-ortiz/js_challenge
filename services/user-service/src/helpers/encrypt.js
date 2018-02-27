@@ -1,9 +1,10 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const q = require('q');
 
 module.exports = {
     encrypt(plain_text) {
         const promise = q.defer();
+        if (!plain_text) return promise.reject('Provide a password to encrypt');
         bcrypt.genSalt(10, function(err, salt) {
             bcrypt.hash(plain_text, salt, function(err, hash) {
                 if (err) return promise.reject(err);
