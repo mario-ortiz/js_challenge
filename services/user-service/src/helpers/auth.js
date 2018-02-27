@@ -3,7 +3,6 @@ const jwt = require('./jwt');
 
 module.exports = {
     is_authenticated(req, res, next) {
-        console.log(req.headers);
         if (!(req.headers && req.headers.authorization)) {
             return res
                 .send({
@@ -41,4 +40,4 @@ module.exports = {
                     });
             });
     }
-}
+};
