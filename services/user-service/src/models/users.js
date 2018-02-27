@@ -82,9 +82,6 @@ User.register = (user_data) => {
                     email,
                     password: encrypted_password,
                     username
-                })
-                .catch(err => {
-                    console.log(err);
                 });
         })
         .then(new_user => {
